@@ -1,0 +1,47 @@
+﻿@page
+@model DSA_Marathon.Web.Pages.Exam.StartModel
+@{
+    ViewData["Title"] = "Bắt đầu bài thi";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="text-center mb-4 fw-bold text-primary">
+                        🧠 BẮT ĐẦU BÀI THI
+                    </h3>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Username" class="form-label fw-semibold">Nhập tên của bạn</label>
+                            <input asp-for="Username" class="form-control form-control-lg" placeholder="VD: Nguyen Van A" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <div>@error.ErrorMessage</div>
+                                }
+                            </div>
+                        }
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-3">
+                                🚀 Bắt đầu ngay
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

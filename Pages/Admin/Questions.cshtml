@@ -1,0 +1,128 @@
+﻿@page
+@model DSA_Marathon.Web.Pages.Admin.QuestionsModel
+@{
+    ViewData["Title"] = "Quản lý câu hỏi";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f3f9ff, #e1f0ff);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .admin-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h2 {
+        font-weight: 700;
+        color: #007bff;
+        text-align: center;
+    }
+
+    table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: #007bff;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+    }
+
+    tbody tr {
+        transition: all 0.2s ease-in-out;
+    }
+
+        tbody tr:hover {
+            background-color: #e3f2fd !important;
+            transform: scale(1.01);
+        }
+
+    .btn {
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    .footer {
+        text-align: center;
+        color: #666;
+        margin-top: 50px;
+        padding-bottom: 15px;
+        font-size: 0.9rem;
+    }
+
+
+    }
+</style>
+
+<div class="admin-container">
+    <h2 class="mb-4">🧠 Quản lý câu hỏi</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a asp-page="/Admin/AddQuestion" class="btn btn-success px-4">➕ Thêm câu hỏi mới</a>
+        <a href="/" class="btn btn-secondary px-4">🏠 Trang chủ</a>
+    </div>
+
+    <table class="table table-hover align-middle shadow-sm">
+        <thead>
+            <tr>
+                <th style="width: 5%">ID</th>
+                <th style="width: 45%">Nội dung</th>
+                <th style="width: 15%">Mức Bloom</th>
+                <th style="width: 10%">Đáp án</th>
+                <th style="width: 25%" class="text-center">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Questions.Any())
+            {
+                foreach (var q in Model.Questions)
+                {
+                    <tr>
+                        <td>@q.Id</td>
+                        <td>@q.Content</td>
+                        <td>@q.BloomLevel?.Name</td>
+                        <td>@q.Answers.Count</td>
+                        <td class="text-center">
+                            <a asp-page="/Admin/EditQuestion" asp-route-id="@q.Id" class="btn btn-sm btn-warning me-2">
+                                ✏️ Sửa
+                            </a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@q.Id" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Xóa câu hỏi này?')">
+                                    🗑️ Xóa
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="text-center text-muted">
+                    <td colspan="5">Chưa có câu hỏi nào trong hệ thống.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer bản quyền -->
+<div class="footer">
+    <hr class="w-50 mx-auto border-secondary">
+    <p class="mb-1">© @DateTime.Now.Year <strong>AlarmBotKiJo</strong>. All rights reserved.</p>
+    <p>Built with ❤️ to support effective learning and testing.</p>
+</div>

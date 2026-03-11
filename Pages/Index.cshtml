@@ -1,0 +1,97 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "DSA Marathon";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+        min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+    }
+
+    .main-card {
+        background: #fff;
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        padding: 50px;
+        margin-top: 80px;
+        transition: all 0.3s ease;
+    }
+
+    .main-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    h1 {
+        font-weight: 800;
+        color: #0056b3;
+    }
+
+    h5 {
+        color: #6c757d;
+        font-weight: 400;
+    }
+
+    .btn {
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-lg {
+        padding: 14px;
+        font-size: 1.1rem;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .footer {
+        color: #f8f9fa;
+        margin-top: 80px;
+        font-size: 0.9rem;
+    }
+
+    .footer a {
+        color: #f8f9fa;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container text-center">
+    <div class="main-card mx-auto col-lg-6 col-md-8 col-sm-10">
+        <h1 class="mb-3">🏃‍♂️ DSA_MARATHON</h1>
+        <h5 class="mb-4">Cuộc thi ôn tập cuối kỳ – Rèn luyện kỹ năng giải thuật</h5>
+
+        <div class="d-grid gap-3 mt-4">
+            <a asp-page="/Student/Start" class="btn btn-primary btn-lg shadow-sm">
+                🎯 Bắt đầu làm bài Marathon Quiz
+            </a>
+
+            <a asp-page="/Student/LeaderBoard" class="btn btn-success btn-lg shadow-sm">
+                🏆 Xem bảng xếp hạng
+            </a>
+
+            <a asp-page="/Admin/Login" class="btn btn-dark btn-lg shadow-sm">
+                ⚙️ Quản lý câu hỏi (Admin)
+            </a>
+        </div>
+    </div>
+
+    <div class="footer text-center mt-5">
+        <hr class="w-50 mx-auto border-light">
+        <p class="mb-1">© @DateTime.Now.Year <strong>AlarmBotKiJo</strong>. All rights reserved.</p>
+        <p>
+            Made with ❤️ for learning & excellence.
+        </p>
+    </div>
+</div>

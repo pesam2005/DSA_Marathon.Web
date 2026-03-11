@@ -1,0 +1,125 @@
+﻿@page "{id:int}"
+@model DSA_Marathon.Web.Pages.Admin.EditQuestionModel
+@{
+    ViewData["Title"] = "Chỉnh sửa câu hỏi";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+    }
+
+    .edit-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        padding: 40px;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h3 {
+        color: #f39c12;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    textarea, input[type="text"], select {
+        border-radius: 10px;
+    }
+
+    .input-group-text {
+        background-color: #f1f3f5;
+        border-radius: 10px 0 0 10px;
+        font-weight: 600;
+        min-width: 50px;
+        justify-content: center;
+    }
+
+    .form-check-input {
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .btn {
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        padding: 10px 20px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    .footer {
+        text-align: center;
+        color: #777;
+        margin-top: 50px;
+        padding-bottom: 15px;
+        font-size: 0.9rem;
+    }
+    }
+</style>
+
+<div class="edit-container">
+    <h3 class="mb-4">✏️ Chỉnh sửa câu hỏi</h3>
+
+    <form method="post">
+        <input type="hidden" asp-for="QuestionId" />
+
+        <!-- Nội dung câu hỏi -->
+        <div class="mb-3">
+            <label class="form-label">📝 Nội dung câu hỏi</label>
+            <textarea asp-for="QuestionContent" class="form-control shadow-sm" rows="3"></textarea>
+        </div>
+
+        <!-- Mức Bloom -->
+        <div class="mb-3">
+            <label class="form-label">📘 Mức độ Bloom</label>
+            <select asp-for="SelectedBloomId" class="form-select shadow-sm">
+                @foreach (var bloom in Model.BloomLevels)
+                {
+                    <option value="@bloom.Id" selected="@(bloom.Id == Model.SelectedBloomId)">
+                        @bloom.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- Danh sách đáp án -->
+        <h5 class="fw-bold mt-4 mb-3 text-primary">💡 Các đáp án</h5>
+        @for (int i = 0; i < Model.Answers.Count; i++)
+        {
+            <div class="input-group mb-2 shadow-sm">
+                <span class="input-group-text fw-bold">@(Convert.ToChar(65 + i))</span>
+                <input type="text" name="Answers[@i].Content" value="@Model.Answers[i].Content" class="form-control" />
+                <div class="input-group-text bg-light">
+                    <input type="radio" name="CorrectIndex" value="@i" class="form-check-input" checked="@(Model.Answers[i].IsCorrect)" />
+                    <label class="form-check-label ms-1">Đúng</label>
+                </div>
+            </div>
+        }
+
+        <!-- Nút hành động -->
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-primary px-4 me-2">💾 Cập nhật</button>
+            <a asp-page="/Admin/Questions" class="btn btn-secondary">⬅️ Quay lại</a>
+        </div>
+    </form>
+</div>
+
+<!-- Footer bản quyền -->
+<div class="footer">
+    <hr class="w-50 mx-auto border-secondary">
+    <p class="mb-1">© @DateTime.Now.Year <strong>AlarmBotKiJo</strong>. All rights reserved.</p>
+    <p>Empowering learning — one question at a time. 💡</p>
+</div>

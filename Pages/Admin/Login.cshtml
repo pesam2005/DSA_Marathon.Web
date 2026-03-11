@@ -1,0 +1,32 @@
+﻿@page
+@model DSA_Marathon.Web.Pages.Admin.LoginModel
+@{
+    ViewData["Title"] = "Đăng nhập quản trị";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg p-4">
+                <h3 class="text-center mb-4 fw-bold text-primary">🔐 Đăng nhập Quản trị</h3>
+
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">@Model.ErrorMessage</div>
+                }
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Tên đăng nhập</label>
+                        <input asp-for="Username" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu</label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

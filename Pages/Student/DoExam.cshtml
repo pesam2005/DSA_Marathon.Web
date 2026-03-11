@@ -1,0 +1,110 @@
+﻿@page
+@model DSA_Marathon.Web.Pages.Student.DoExamModel
+@{
+    ViewData["Title"] = "Làm bài thi";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+        min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .exam-container {
+        background: #fff;
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        padding: 40px 60px;
+        margin-top: 60px;
+        margin-bottom: 40px;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 {
+        color: #0056b3;
+        font-weight: 700;
+    }
+
+    .card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+    .card-body h5 {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .form-check-label {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .form-check-input:checked {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    button.btn {
+        border-radius: 12px;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+    }
+
+        button.btn:hover {
+            transform: scale(1.05);
+        }
+
+    .footer {
+        color: #f8f9fa;
+        text-align: center;
+        margin-top: 40px;
+        padding-bottom: 15px;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container exam-container">
+    <h2 class="mb-4 text-center">📝 Làm bài thi</h2>
+
+    <form method="post">
+        @for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            var q = Model.Questions[i];
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5>@(i + 1). @q.Content</h5>
+                    <hr />
+                    @foreach (var a in q.Answers)
+                    {
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio"
+                                   name="SelectedAnswers[@q.Id]" value="@a.Id" id="answer_@a.Id" />
+                            <label class="form-check-label" for="answer_@a.Id">@a.Content</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success shadow-sm">✅ Nộp bài</button>
+        </div>
+    </form>
+</div>
+
+<div class="footer">
+    <hr class="border-light w-50 mx-auto">
+    <p class="mb-1">© @DateTime.Now.Year <strong>AlarmBotKiJo</strong>. All rights reserved.</p>
+    <p>Made with ❤️ to help you learn smarter.</p>
+</div>
